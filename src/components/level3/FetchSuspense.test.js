@@ -1,14 +1,51 @@
-import { describe, it } from 'vitest';
+import { expect, it, describe, vi, afterEach } from 'vitest';
+import { flushPromises, mount } from '@vue/test-utils';
+import FetchSuspense from './FetchSuspense.vue';
+
 // TODO: complete the test suite for this component!
 
 describe('FetchSuspense.vue', () => {
-  it('renders correctly', () => {});
+  const fetchSpy = vi.fn(); // utility to create mock function
+  vi.stubGlobal('fetch', fetchSpy);
 
-  it('calls fetch API', () => {});
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
 
-  it('throws error on fetch not ok', () => {});
+  it('renders correctly', () => {
+    const wrapper = mount(FetchSuspense);
+    expect(wrapper.exists()).toBe(true);
+  });
 
-  it('throws error on fetch error', () => {});
+  it('calls fetch API', () => {
+    mount(FetchSuspense);
+    expect(fetchSpy).toBeCalledTimes(1);
+    expect(fetchSpy).toBeCalledWith('https://yesno.wtf/api');
+  });
 
-  it('shows image once fetch is completed', () => {});
+  // it('throws error on fetch not ok', async () => {
+  //   fetchSpy.mockResolvedValue({ ok: false });
+
+  // });
+
+  // it('throws error on fetch error', () => {
+  //   fetchSpy.mockResolvedValue(new Error('reasons'));
+  // });
+
+  it('shows image once fetch is completed', async () => {
+    fetchSpy.mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => {
+          return Promise.resolve({ image: 'test' });
+        },
+      })
+    );
+    const wrapper = mount(FetchSuspense);
+
+    // Wait until the DOM updates.
+    await flushPromises();
+    const img = wrapper.find('img');
+    expect(img.attributes('src')).toBe('test');
+  });
 });

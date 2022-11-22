@@ -5,7 +5,9 @@ import dataService from './utils/dataService';
 
 const movies = dataService.getMovies();
 
-function setFavoriteMovie() {}
+function setFavoriteMovie(favItem) {
+  favoriteMovie.value = favItem;
+}
 const favoriteMovie = ref('');
 </script>
 <template>
@@ -15,7 +17,7 @@ const favoriteMovie = ref('');
       :movie="movie"
       :key="movie.id"
       :favorite-movie="favoriteMovie"
-      @favorite-selected="setFavoriteMovie"
+      @favorite-selected="setFavoriteMovie($event)"
     />
   </div>
   <div class="controls">

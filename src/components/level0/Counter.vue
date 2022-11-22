@@ -7,6 +7,6 @@ function increment() {
 </script>
 
 <template>
-  <p class="paragraph">Times clicked: {{ count }}</p>
+  <p class="paragraph" data-testid="counter">Times clicked: {{ count }}</p>
   <button @click="increment">increment</button>
 </template>

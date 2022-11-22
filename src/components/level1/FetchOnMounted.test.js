@@ -1,11 +1,12 @@
 import { expect, it, describe, vi, afterEach } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
 import FetchOnMounted from './FetchOnMounted.vue';
+import { NOOP } from 'vue';
 
 // TODO: TDD Exercise: complete the implementation of the component FetchOnMounted
 // so all tests pass
 describe('FetchOnMounted.vue', () => {
-  const fetchSpy = vi.fn();
+  const fetchSpy = vi.fn(); // utility to create mock function
   vi.stubGlobal('fetch', fetchSpy);
 
   afterEach(() => {
@@ -50,7 +51,7 @@ describe('FetchOnMounted.vue', () => {
   });
 
   it('shows error on fetch not ok', async () => {
-    fetchSpy.mockResolvedValue({ ok: false });
+    fetchSpy.mockResolvedValue(NOOP);
     const wrapper = mount(FetchOnMounted);
 
     // Wait until the DOM updates.

@@ -4,10 +4,26 @@
 
 import { ref, onMounted } from 'vue';
 const response = ref({});
-
+const error = ref(false);
+const loaded = ref(false);
 onMounted(async () => {
-  const res = await fetch('https://yesno.wtf/api');
+  try {
+    const res = await fetch('https://yesno.wtf/api');
+
+    if (res.ok) {
+      loaded.value = true;
+      response.value = await res.json();
+    } else {
+      error.value = true;
+    }
+  } catch (e) {
+    error.value = true;
+  }
 });
 </script>
 
-<template></template>
+<template>
+  <img v-if="loaded" :src="response.image" alt="image from api" />
+  <div v-else>loading</div>
+  <div v-if="error">error</div>
+</template>

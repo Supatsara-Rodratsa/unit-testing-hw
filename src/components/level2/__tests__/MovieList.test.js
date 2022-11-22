@@ -1,5 +1,5 @@
 import { expect, it, describe } from 'vitest';
-import { mount, shallowMount } from '@vue/test-utils';
+import { flushPromises, mount, shallowMount } from '@vue/test-utils';
 import MovieList from '../MovieList.vue';
 import MovieCard from '../MovieCard.vue';
 
@@ -14,15 +14,16 @@ describe('MovieList.vue', () => {
   // TODO: Rework the test so it follows best practices
   it('should render movie list', async () => {
     const wrapper = shallowMount(MovieList);
+    await flushPromises(); // using flushPromises to make sure that all DOM is already rendered
     const movieCards = wrapper.findAllComponents(MovieCard);
-
     expect(movieCards.length).toBe(4);
   });
 
   // TODO: write this test!
   it('should have no favorite movie by default', async () => {
     const wrapper = shallowMount(MovieList);
-    // ...?
+    await flushPromises();
+    expect(wrapper.vm.favoriteMovie).toBe('');
   });
 
   // TODO: TDD time!

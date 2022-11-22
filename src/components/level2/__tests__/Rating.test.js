@@ -9,4 +9,12 @@ describe('Ratings.vue', () => {
   });
 
   // TODO: how to test for prop score here?
+  it('renders prop score correctly', () => {
+    const wrapper = mount(Ratings, {
+      propsData: {
+        score: 'test',
+      },
+    });
+    expect(wrapper.props('score')).toBe('test');
+  });
 });

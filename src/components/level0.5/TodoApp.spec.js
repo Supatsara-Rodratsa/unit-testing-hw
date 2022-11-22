@@ -4,13 +4,11 @@ import TodoApp from './TodoApp.vue';
 
 test('renders a todo', () => {
   const wrapper = mount(TodoApp);
-
+  const todoItem = wrapper.vm.todos[0];
   const todo = wrapper.get('[data-test="todo"]');
-
-  expect(todo.text()).toBe('Learn Vue.js 3');
+  expect(todo.text()).toBe(todoItem.text);
 });
 
-/*
 test('creates a todo', async () => {
   const wrapper = mount(TodoApp);
   expect(wrapper.findAll('[data-test="todo"]')).toHaveLength(1);
@@ -22,9 +20,7 @@ test('creates a todo', async () => {
   expect(todos).toHaveLength(2);
   expect(todos[1].text()).toBe('New todo');
 });
-*/
 
-/*
 test('completes a todo', async () => {
   const wrapper = mount(TodoApp);
 
@@ -32,4 +28,3 @@ test('completes a todo', async () => {
 
   expect(wrapper.get('[data-test="todo"]').classes()).toContain('completed');
 });
-*/

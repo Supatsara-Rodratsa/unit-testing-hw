@@ -3,12 +3,11 @@ import { expect, test } from 'vitest';
 import Counter from './Counter.vue';
 
 test('increments value on click (NOT GREAT TEST)', async () => {
-  const wrapper = mount(Counter);
-  const paragraph = wrapper.find('.paragraph');
-
+  const wrapper = mount(Counter); //mount component
+  const paragraph = wrapper.find('.paragraph'); //looking for a class bc of '.'
   expect(paragraph.text()).toBe('Times clicked: 0');
 
-  await wrapper.vm.increment();
+  await wrapper.vm.increment(); // vm access to everything in script including function
   await wrapper.vm.increment();
 
   expect(paragraph.text()).toBe('Times clicked: 2');
