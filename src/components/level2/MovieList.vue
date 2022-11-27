@@ -8,6 +8,7 @@ const movies = dataService.getMovies();
 function setFavoriteMovie(favItem) {
   favoriteMovie.value = favItem;
 }
+
 const favoriteMovie = ref('');
 </script>
 <template>
